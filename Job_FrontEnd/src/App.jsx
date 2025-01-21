@@ -1,13 +1,30 @@
-import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Navbar from './components/shared/Navbar'
+import Login from './components/auth/Login'
+import Signup from './components/auth/Signup'
+import Home from './components/Home'
 
-const App=() => {
+const appRouter=createBrowserRouter([
+  {
+    path: '/',
+    element:<Home/>
+  },
+  {
+    path: '/login',
+    element:<Login/>
+  },
+  {
+    path: '/signup',
+    element:<Signup/>
+  },
+])
+
+function App() {
 
   return (
-    <div>
-      <section className="h-screen bg-green-400 flex items-center justify-center m-12 text-center text-3xl">
-        <p>Let's  Build Job Portal</p>
-      </section>
-    </div>
+      <div>
+        <RouterProvider router = {appRouter}/>
+      </div>
   )
 }
 
