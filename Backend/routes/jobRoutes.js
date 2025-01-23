@@ -1,5 +1,5 @@
 const express = require('express');
-const JobPosting = require('../DBmodels/jobPosting.js');
+const JobPosting = require('../models/jobPosting.js');
 const { authenticate } = require('../middleware/authenticate.js');
 
 const router = express.Router();
