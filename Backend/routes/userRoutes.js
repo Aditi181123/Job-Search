@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../DBmodels/user');
+const User = require('../models/user');
 const { authenticate } = require('../middleware/authenticate');
 const mongoose = require('mongoose');
 
@@ -15,7 +15,6 @@ router.post('/signup', async (req, res) => {
         contactNo, 
         password, 
         role, 
-        profile,
     } = req.body;
 
     try {
@@ -35,7 +34,6 @@ router.post('/signup', async (req, res) => {
             contactNo,
             password: hashedPassword,
             role,
-            profile
         });
 
         // Generate JWT

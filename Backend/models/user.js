@@ -22,26 +22,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['Job-Seeker', 'Recruiter'],
         required: true
-    },
-    profile: {
-        bio: {
-            type: String
-        },
-        skills: [{
-            type: String
-        }],
-        resume: {
-            type: String
-        },
-        portfolio: {
-            type: String
-        },
-        profilePicture: {
-            type: String,
-            default: ""
-        }
-    },
-
+    }
 }, {timestamps: true});
 
 const UserModel = mongoose.model("Users", userSchema);
