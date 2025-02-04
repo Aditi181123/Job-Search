@@ -27,11 +27,11 @@ const Login = () => {
         <div>
             <Navbar />
             <div className="flex items-center justify-center max-w-6xl mx-auto my-10">
-                <form onSubmit={submitHandler} className='w-1/2 border border-teal-500 p-6 rounded-md my-10'>
-                    <h1 className='font-bold text-xl text-center text-teal-600 '>Welcome Back !</h1>
+                <form onSubmit={submitHandler} className='w-1/2 p-6 rounded-md my-10 shadow-md shadow-gray-400'>
+                    <h1 className='font-bold text-2xl text-center text-c1 '>Welcome Back !</h1>
 
                     <div className='my-2'>
-                        <Label>Email Address</Label>
+                        <Label className='font-bold'>Email Address</Label>
                         <Input
                             type='email'
                             value={input.email}
@@ -42,7 +42,7 @@ const Login = () => {
                     </div>
 
                     <div className='my-2'>
-                        <Label>Password</Label>
+                        <Label className='font-bold'>Password</Label>
                         <Input
                             type='password'
                             value={input.password}
@@ -57,19 +57,19 @@ const Login = () => {
                                 <Input
                                     type='radio' name='role' value='student' checked={input.role === 'student'} onChange={changeEventHandler} className='cursor-pointer'
                                 />
-                                <Label htmlFor="r1">Student</Label>
+                                <Label htmlFor="r1" className='font-bold'>Student</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Input
                                     type='radio' name='role' value='recruiter' checked={input.role === 'recruiter'} onChange={changeEventHandler} className='cursor-pointer'
                                 />
-                                <Label htmlFor="r2">Recruiter</Label>
+                                <Label htmlFor="r2" className='font-bold'>Recruiter</Label>
                             </div>
                         </RadioGroup>
 
                     </div>
-                    <Button type='submit' className='w-full my-4 bg-teal-700'>Login</Button>
-                    <span className='text-sm'>Not registered? <Link to='/signup' className='mx-4 text-violet-800'>Sign up</Link></span>
+                    <Button type='submit' className='w-full my-4 bg-c1 hover:bg-c2'>Login</Button>
+                    <span className='text-sm'>Don't have an account? <Link to='/signup' className='mx-4 text-c2'>Sign up</Link></span>
                 </form>
             </div>
         </div>
