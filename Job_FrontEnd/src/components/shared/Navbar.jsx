@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Avatar, AvatarImage } from '../ui/avatar'
@@ -20,15 +20,15 @@ const Navbar = () => {
                     <h1 className='text-3xl font-bold text-c1'>Jobify<span className='text-gray-800'>.com</span></h1>
                 </div>
                 <div className='flex item-center gap-12'>
-                    <ul className='flex font-medium item-center gap-5 text-gray-700 cursor-pointer'>
+                    <ul className='flex font-medium item-center gap-8 text-gray-700 cursor-pointer'>
                         <li>
-                            Home
+                        <Link to="/">Home</Link>
                         </li>
                         <li>
-                            Jobs
+                        <Link to="/jobs">Jobs</Link>
                         </li>
                         <li>
-                            Browse
+                        <Link to="/post-job">Post a Job</Link>
                         </li>
                     </ul>
                     {
