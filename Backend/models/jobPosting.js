@@ -13,8 +13,8 @@ const jobPostingSchema = new mongoose.Schema({
         type: String,
     }],
     salary: {
-        min: { type: Number },
-        max: { type: Number },
+        type: Number,
+        required: true
     },
     experienceLevel: {
         type: Number,
@@ -47,7 +47,9 @@ const jobPostingSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Application'
     }] 
+    
 }, {timestamps: true});
 
 const JobPostingModel = mongoose.model('JobPosting', jobPostingSchema);
+
 module.exports = JobPostingModel;

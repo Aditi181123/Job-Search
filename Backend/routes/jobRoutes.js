@@ -1,55 +1,13 @@
-const express = require('express');
-const JobPosting = require('../models/jobPosting.js');
-const { authenticate } = require('../middleware/authenticate.js');
+import express from "express";
+import authenticated from "../middleware/authenticate";
+import { postJob, AllJobs, getJob } from "../controllers/jobPosting";
 
 const router = express.Router();
 
-// Post a job
-router.post('/newJob', authenticate, async(req, res) => {
-    const{ title, 
-        description, 
-        skillRequired, 
-        salary, 
-        experienceLevel, 
-        location,
-        jobType, 
-        position, 
-        company, 
-        posted_by, 
-        applicants = []
-    } = req.body;
+router.route("/post", authenticated, postJob);
 
-    try{
-        const newJob = new JobPosting({
-            description, 
-            skillRequired, 
-            salary, 
-            experienceLevel, 
-            location,
-            jobType, 
-            position, 
-            company, 
-            posted_by, 
-            applicants
-        });
+router.route("/get", authenticated, AllJobs);
 
-        await newJob.save();
-        res.status(201).json(newJob);
-    }
-    catch(error){
-        res.status(500).json({message: 'Error posting job'});
-    }
-});
+router.route("/get/:id", authenticated, getJob);
 
-// Get all jobs
-router.get('/allJobs', async(req, res) => {
-    try{
-        const jobs = await JobPosting.find().populate('company posted_by applicants');
-        res.status(200).json(jobs);
-    }
-    catch(error){
-        res.status(500).json({message: 'Error fetching jobs'});
-    }
-});
-
-module.exports = router;
+export default  router;

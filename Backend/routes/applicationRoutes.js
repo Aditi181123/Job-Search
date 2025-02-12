@@ -1,39 +1,18 @@
-const express = require('express');
-const Application = require('../models/application');
-const { authenticate } = require('../middleware/authenticate');
+import express from "express";
+import { authenticated } from "../middleware/authenticate.js";
+import { applyJob, getAppliedJobs, getApplicants, updateStatus } from "../controllers/application.js";
 
 const router = express.Router();
 
-// Apply for a job
-router.post('/postJob', authenticate, async(req, res) => {
-    const { job, applicant, status, coverLetter, resume} = req.body;
 
-    try{
-        const application = new Application({
-            job,
-            applicant: req.user.id,
-            status,
-            coverLetter,
-            resume
-        });
+router.post("/apply/:id", authenticated, applyJob);
 
-        await applicant.save();
-        res.status(201).json(application);
-    }
-    catch(error){
-        res.status(500).json({message: 'Error applying for job', error});
-    }
-});
 
-// Get applications for a job
-router.get('/:jobId', authenticate, async(req, res) => {
-    try{
-        const applications = await Application.find({job: req.params.jobId}).populate('applicant job');
-        res.status(200).json(applications);
-    }
-    catch(error){
-        res.status(500).json({message: 'Error fetching applications', error});
-    }
-});
+router.get("/getJobs", authenticated, getAppliedJobs);
 
-module.exports = router;
+router.get("/:id/applicants", authenticated, getApplicants);
+
+
+router.put("/status/:id", authenticated, updateStatus);
+
+export default router;

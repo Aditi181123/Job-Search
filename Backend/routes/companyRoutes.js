@@ -1,32 +1,16 @@
-const express = require('express');
-const Company = require('../models/company');
-const { authenticate } = require('../middleware/authenticate');
+import express from "express";
+import authenticated from "../middleware/authenticate";
+import {registerCompany, getCompany, getCompanyById, updateCompany } from "../controllers/company";
+import { singleUpload } from "../middleware/mutler";
 
 const router = express.Router();
 
-// Create a new Company
-router.post('/newComapany', authenticate, async(req, res) => {
-    const { name, description, website, location, industry, employees = []} = req.body;
+router.route("/register", authenticated, registerCompany);
 
-    try{
-        const newComapany = new Company({name, description, website, location, industry, employees});
-        await newComapany.save();
-        res.status(201).json(newComapany);
-    }
-    catch(error){
-        res.status(500).json({message: 'Error creating company', error});
-    }
-});
+router.route("/getCompany", authenticated, getCompany);
 
-// Get company details
-router.get('/:id', async (req, res) => {
-    try{
-        const company = await Company.findById(req.params.id).populate('employees');
-        res.status(200).json(company);
-    }
-    catch(error){
-        res.status(500).json({message: 'Company not found', error});
-    }
-});
+router.route("/get/:id", authenticated, getCompanyById);
 
-module.exports = router;
+router.route("/update/:id", authenticated, singleUpload, updateCompany);
+
+export default router;

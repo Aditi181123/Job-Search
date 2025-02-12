@@ -18,11 +18,17 @@ const companySchema = new mongoose.Schema({
     industry: {
         type: String
     },
+    logo: {
+        type: String
+    },
     employees: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true
     }]
+
 }, {timestamps: true})
 
 const companyModel = mongoose.model('Company', companySchema);
+
 module.exports = companyModel;

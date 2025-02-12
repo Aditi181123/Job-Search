@@ -1,18 +1,29 @@
-const jwt = require('jsonwebtoken');
-const { model } = require('mongoose');
+import jwt from  "jsonwebtoken";
 
-const authenticate = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
-    if(!token) return res.status(401).json({message: 'No token, authorization denied'});
-
+const authenticated = async (req, res, next) => {
     try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-        next();
-    } 
-    catch(err){
-        res.status(401).json({message: 'Token is not valid'});
-    }
-};
+        const token = req.cookies.token;
+        if(!token){
+            return res.status(401).json({
+                message: "User not authenticated",
+                success: false,
+            })
+        }
 
-module.exports = { authenticate };
+        const decode = await jwt.verify(token, process.env.SECRET_KEY);
+        if(!decode){
+            return res.status(401). json({
+                message: "Invalid token",
+                success: false
+            })
+        };
+
+        req.id = decode.userId
+        next();
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+export default authenticated;
